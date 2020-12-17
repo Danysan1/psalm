@@ -60,6 +60,9 @@ $valid_long_options = [
     'tcp-server',
     'disable-on-change::',
     'enable-autocomplete',
+    'track-tainted-input',
+    'taint-analysis',
+    'security-analysis',
     'use-extended-diagnostic-codes',
     'verbose'
 ];
@@ -285,6 +288,13 @@ if (isset($options['disable-on-change'])) {
 $project_analyzer->provide_completion = !isset($options['enable-autocomplete'])
     || !is_string($options['enable-autocomplete'])
     || strtolower($options['enable-autocomplete']) !== 'false';
+
+if ($config->run_taint_analysis || (isset($options['track-tainted-input'])
+    || isset($options['security-analysis'])
+    || isset($options['taint-analysis']))
+) {
+    $project_analyzer->trackTaintedInputs();
+}
 
 $config->visitComposerAutoloadFiles($project_analyzer);
 
