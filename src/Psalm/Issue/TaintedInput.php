@@ -65,7 +65,7 @@ abstract class TaintedInput extends CodeIssue
         return new DataFlowNodeData(
             $label,
             $entry_path_type,
-            null,
+            "",
             $location->getLineNumber(),
             $location->getEndLineNumber(),
             $location->file_name,

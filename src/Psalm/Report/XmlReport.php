@@ -10,9 +10,7 @@ class XmlReport extends Report
 {
     public function create(): string
     {
-        $xml = Array2XML::createXML(
-            'report',
-            [
+        $content = [
                 'item' => array_map(
                     function (IssueData $issue_data): array {
                         $issue_data = (array) $issue_data;
@@ -21,8 +19,11 @@ class XmlReport extends Report
                     },
                     $this->issues_data
                 )
-            ]
-        );
+            ];
+
+        echo json_encode($content).PHP_EOL;
+        
+        $xml = Array2XML::createXML('report', $content);
 
         return $xml->saveXML();
     }
